@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizador de Dataset</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f6f8fa;
+            padding: 30px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type=text] {
+            width: 70%;
+            padding: 8px;
+        }
+        button {
+            padding: 8px 12px;
+            background: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+        th {
+            background: #f2f2f2;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>📊 Visualizador de Dataset (por URL)</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="url" placeholder="Pega aquí la URL del CSV de GitHub o Kaggle">
+        <button type="submit">Cargar Datos</button>
+    </form>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    {% if df_html %}
+        {{ df_html|safe }}
+    {% endif %}
+</body>
+</html>
